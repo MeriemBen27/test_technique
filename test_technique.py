@@ -1,22 +1,28 @@
 
 
-def DPMR(L: list, len :int, min : int, max:int):
-    c= len//2
+def DPMR(L: list, min : int, max:int, num : int):
     
-    """Introduire le nombre à inserer dans la liste """
-    print("Donner le nombre que vous souhaiter insérer :")
-    num = int(input())
+    """ La consition d'arret"""
+    if min >= max:
+        return min
     
+    c= (min+max)//2
 
-    if num > c :
+    """ si num est superieur ou inférieur à c le centre, si oui appel récursif """
+    if num > L[c] :
         min=c
+        print("nouveau min", min)
+        print("le centre", c)
         print(min)
-        DPMR(L, len, min, max)
-
-    elif num < c:
+        return DPMR(L, min+1, max, num)
+    
+    
+    elif num < L[c]:
         max=c
+        print("nouveau max", max)
+        print("le centre", c)
         print(max)
-        DPMR(L, len, min, max)
+        return DPMR(L, min, max-1, num)
 
 
 
@@ -29,16 +35,18 @@ def DPMR(L: list, len :int, min : int, max:int):
 import random
 
 """définition de la liste et trie en ordre croissant"""
-first=20
-last=30
-len=5
-L= [random.randint(first,last) for i in range(len)]
+min=20
+max=50
+len=10
+
+L= [random.randint(min,max) for i in range(len)]
 L.sort()
-c=L[len//2]
-
 print(L)
-print(c)
+"""Introduire le nombre à inserer dans la liste """
+print("Donner le nombre que vous souhaiter insérer :")
+num = int(input())
 
-min = L[0]
-max= L[-1]
-DPMR(L, len, min, max)
+i= DPMR(L, 0, len - 1, num)
+print(i)
+L.insert(i, num)
+print(L)
